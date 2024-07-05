@@ -1,5 +1,5 @@
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:forekast_app/data/local_storage/data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:forekast_app/models/weather_model.dart';
 import 'package:forekast_app/services/cities_api.dart';
@@ -11,8 +11,7 @@ import 'package:forekast_app/screens/widgets/daily_forecast.dart';
 BorderRadius searchBarRadius = BorderRadius.circular(30.0);
 
 class ForecastPage extends StatefulWidget {
-  final String city;
-  const ForecastPage({super.key, required this.city});
+  const ForecastPage({super.key});
 
   @override
   State<ForecastPage> createState() => _ForecastPageState();
@@ -33,14 +32,16 @@ class _ForecastPageState extends State<ForecastPage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      searchCity = widget.city;
-    });
     initStateMethods();
   }
 
   void initStateMethods() async {
     await getCitiesFunc();
+    final city = await SearchCity.getSearchCity();
+    setState(() {
+      searchCity = city;
+    });
+    await getData(searchCity);
   }
 
   Future<void> getData(String city) async {
@@ -80,82 +81,6 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  Widget weatherAppSearch() {
-    GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
-    return SizedBox(
-      height: 48,
-      width: 360,
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 5,
-              ),
-              child: SimpleAutoCompleteTextField(
-                key: key,
-                controller: textController,
-                suggestions: citiesData,
-                suggestionsAmount: 6,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(10.0),
-                  hintText: 'search city',
-                  hintStyle: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: searchBarRadius,
-                    borderSide: const BorderSide(
-                      width: 0.0,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: searchBarRadius,
-                    borderSide: const BorderSide(
-                      color: Colors.white10,
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white12,
-                  prefixIcon: IconButton(
-                    color: Colors.white,
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      textController.text = '';
-                    },
-                  ),
-                  suffixIcon: IconButton(
-                    color: Colors.white,
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      if (textController.text != '') {
-                        setState(() {
-                          searchCity = textController.text;
-                        });
-                        textController.text = '';
-                      }
-                    },
-                  ),
-                ),
-                cursorColor: Colors.white,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-                textSubmitted: (data) {
-                  if (textController.text != '') {
-                    setState(() {
-                      searchCity = textController.text;
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   FutureBuilder<void> weatherFutureBuilder(String city) {
     return FutureBuilder(
       future: getData(city),
@@ -163,6 +88,7 @@ class _ForecastPageState extends State<ForecastPage> {
         try {
           if (snapshot.connectionState == ConnectionState.done) {
             if (data?.cityName == '') {
+              print('inside if');
               return const Center(
                 child: Text(
                   "Oops! \nWeather info not available.\nPlease search for another city.",

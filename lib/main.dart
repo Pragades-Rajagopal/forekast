@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
       //     : theme == 'Dark'
       //         ? ThemeMode.dark
       //         : ThemeMode.light,
+      initialRoute: '/forecast',
+      routes: {
+        "/forecast": (context) => const AppBasePage(index: 0),
+        "/favorites": (context) => const AppBasePage(index: 1),
+      },
     );
   }
 }

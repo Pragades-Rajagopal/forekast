@@ -1,5 +1,7 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:forekast_app/data/local_storage/data.dart';
+import 'package:forekast_app/screens/favorites.dart';
 import 'package:forekast_app/screens/forecast.dart';
 import 'package:forekast_app/screens/settings.dart';
 import 'package:forekast_app/services/cities_api.dart';
@@ -19,7 +21,6 @@ class _AppBasePageState extends State<AppBasePage> {
   late PageController _pageController = PageController();
   final textController = TextEditingController();
   var _currentIndex = 0;
-  var searchCity = 'salem';
   CitiesApi cities = CitiesApi();
   List<String> citiesData = [];
 
@@ -61,13 +62,9 @@ class _AppBasePageState extends State<AppBasePage> {
           });
         },
         allowImplicitScrolling: true,
-        children: [
-          ForecastPage(
-            city: searchCity,
-          ),
-          ForecastPage(
-            city: searchCity,
-          ),
+        children: const [
+          ForecastPage(),
+          FavoritesPage(),
         ],
       ),
       bottomNavigationBar: Theme(
@@ -225,11 +222,10 @@ class _AppBasePageState extends State<AppBasePage> {
                   suffixIcon: IconButton(
                     color: Colors.white,
                     icon: const Icon(Icons.search),
-                    onPressed: () {
+                    onPressed: () async {
                       if (textController.text != '') {
-                        setState(() {
-                          searchCity = textController.text;
-                        });
+                        await SearchCity.storeSearchCity(textController.text);
+                        Get.offAllNamed('/forecast');
                         textController.text = '';
                       }
                     },
@@ -239,11 +235,10 @@ class _AppBasePageState extends State<AppBasePage> {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-                textSubmitted: (data) {
+                textSubmitted: (data) async {
                   if (textController.text != '') {
-                    setState(() {
-                      searchCity = textController.text;
-                    });
+                    await SearchCity.storeSearchCity(textController.text);
+                    Get.offAllNamed('/forecast');
                   }
                 },
               ),
