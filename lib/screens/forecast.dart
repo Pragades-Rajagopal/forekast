@@ -8,8 +8,6 @@ import 'package:forekast_app/screens/widgets/additional_info.dart';
 import 'package:forekast_app/screens/widgets/current_weather.dart';
 import 'package:forekast_app/screens/widgets/daily_forecast.dart';
 
-BorderRadius searchBarRadius = BorderRadius.circular(30.0);
-
 class ForecastPage extends StatefulWidget {
   const ForecastPage({super.key});
 
@@ -41,11 +39,13 @@ class _ForecastPageState extends State<ForecastPage> {
     setState(() {
       searchCity = city;
     });
+    print(city);
     await getData(searchCity);
   }
 
   Future<void> getData(String city) async {
     data = await client.getCurrentWeather(city);
+    print(data?.cityName);
     dailyData = await client.getDailyWeather(data?.lat, data?.lon);
     await countryName(data!.country);
   }
@@ -143,7 +143,8 @@ class _ForecastPageState extends State<ForecastPage> {
             "${data!.temp}°C",
             "${data!.cityName}",
             "${data!.description}",
-            "$country",
+            "$country!",
+            context,
           ),
           const SizedBox(
             height: 30.0,
@@ -162,6 +163,7 @@ class _ForecastPageState extends State<ForecastPage> {
             "${data!.pressure}hPa",
             "${data!.feelsLike}°C",
             "${data!.degree}",
+            context,
           ),
           const SizedBox(
             height: 20.0,

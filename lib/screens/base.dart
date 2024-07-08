@@ -9,6 +9,8 @@ import 'package:forekast_app/utils/themes.dart';
 import 'package:forekast_app/utils/tools.dart';
 import 'package:get/get.dart';
 
+BorderRadius searchBarRadius = BorderRadius.circular(30.0);
+
 class AppBasePage extends StatefulWidget {
   final int index;
   const AppBasePage({super.key, required this.index});
@@ -166,6 +168,7 @@ class _AppBasePageState extends State<AppBasePage> {
                 children: [
                   weatherAppSearch(),
                   const SizedBox(height: 14.0),
+                  // searchResultView(citiesData),
                 ],
               ),
             ),

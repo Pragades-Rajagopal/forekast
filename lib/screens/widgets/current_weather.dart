@@ -6,6 +6,7 @@ Widget currentWeather(
   String location,
   String description,
   String country,
+  BuildContext context,
 ) {
   return Center(
     child: Column(
@@ -24,9 +25,9 @@ Widget currentWeather(
         ),
         Text(
           temp,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 48.0,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         const SizedBox(
@@ -36,10 +37,10 @@ Widget currentWeather(
           width: 340,
           child: Text(
             "$location, $country",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 30.0,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             textAlign: TextAlign.center,
           ),
@@ -49,10 +50,10 @@ Widget currentWeather(
         ),
         Text(
           description,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.w300,
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ],

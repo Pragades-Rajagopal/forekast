@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 
 SizedBox div = const SizedBox(height: 16);
-var containerTitleStyle = TextStyle(
-  fontSize: 16,
-  color: Colors.grey[400],
-);
-var containerInfoStyle = TextStyle(
-  fontSize: 22,
-  fontWeight: FontWeight.bold,
-  color: Colors.grey[400],
-);
-Color containerColor = Colors.blueGrey.withOpacity(0.3);
 
 Widget additionalInformation(
   String wind,
@@ -18,6 +8,7 @@ Widget additionalInformation(
   String pressure,
   String feelsLike,
   String? degree,
+  BuildContext context,
 ) {
   return Container(
     width: double.infinity,
@@ -36,7 +27,7 @@ Widget additionalInformation(
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: containerColor,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -48,7 +39,10 @@ Widget additionalInformation(
                     children: [
                       Text(
                         "wind",
-                        style: containerTitleStyle,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -57,7 +51,11 @@ Widget additionalInformation(
                     children: [
                       Text(
                         wind,
-                        style: containerInfoStyle,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -70,7 +68,7 @@ Widget additionalInformation(
               margin: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: containerColor,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -82,7 +80,10 @@ Widget additionalInformation(
                     children: [
                       Text(
                         "humidity",
-                        style: containerTitleStyle,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -91,7 +92,11 @@ Widget additionalInformation(
                     children: [
                       Text(
                         humidity,
-                        style: containerInfoStyle,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -111,7 +116,7 @@ Widget additionalInformation(
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: containerColor,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -123,7 +128,10 @@ Widget additionalInformation(
                     children: [
                       Text(
                         "pressure",
-                        style: containerTitleStyle,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -132,7 +140,11 @@ Widget additionalInformation(
                     children: [
                       Text(
                         pressure,
-                        style: containerInfoStyle,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -145,7 +157,7 @@ Widget additionalInformation(
               margin: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: containerColor,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -157,7 +169,10 @@ Widget additionalInformation(
                     children: [
                       Text(
                         "feels like",
-                        style: containerTitleStyle,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
@@ -166,7 +181,11 @@ Widget additionalInformation(
                     children: [
                       Text(
                         feelsLike,
-                        style: containerInfoStyle,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       )
                     ],
                   ),
